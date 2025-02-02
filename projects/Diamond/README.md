@@ -19,10 +19,6 @@ The Diamond Pattern is a design pattern used in smart contract development that 
 │   │   └── LibDiamond.sol
 │   └── Diamond         # Main diamond contract
 ├── migrations         # Migration scripts for deploying contracts
-├── scripts           # Scripts for deploying and interacting with contracts
-│   ├── deploy.js     # Script for deploying the diamond
-│   └── libraries     # Libraries used in the project
-├── test              # Test scripts for the contracts
 └── tronbox.js        # Configuration for TronBox
 └── README.md         # Project documentation
 ```
@@ -39,14 +35,23 @@ The Diamond Pattern is a design pattern used in smart contract development that 
    yarn run migrate --network nile
    ```
 
-## Available Commands
-- **Deploy Contracts**: `yarn run migrate`
-- **Run Tests**: `yarn run test`
+## Adding New Facets
+In the deployment migration script, you can easily add new facets to the diamond. The relevant code snippet is as follows:
+
+```javascript
+const FacetNames = [
+    'DiamondLoupeFacet',
+    'OwnershipFacet',
+    /*
+    add other facet names here
+    e.g.
+    'Test1Facet',
+    'Test2Facet'
+    */
+];
+```
+
+Simply add the name of the new facet contract to the `FacetNames` array. When you run the migration, the specified facets will be deployed and added to the diamond contract automatically.
 
 ## Overview
 The Diamond Pattern allows for multiple facets (contract implementations) to be combined into a single contract. Each facet can implement specific functionalities, making it easier to manage and upgrade contracts.
-
-For more details on each facet, refer to the individual files in the `contracts/facets` directory.
-
-## Contracts Overview
-This project includes various smart contracts that implement the Diamond Pattern. Each contract represents a facet that can be added to the diamond, providing specific functionalities. The contracts are modular, allowing for easy upgrades and maintenance.
