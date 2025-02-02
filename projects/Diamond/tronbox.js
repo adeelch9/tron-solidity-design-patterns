@@ -1,3 +1,4 @@
+require('dotenv').config();
 const port = process.env.HOST_PORT || 9090
 
 module.exports = {
@@ -50,11 +51,11 @@ Then, run the migration with:
   },
   // solc compiler optimize
   solc: {
-  //   optimizer: {
-  //     enabled: true,
-  //     runs: 200
-  //   },
-  //   evmVersion: 'istanbul',
-  //   viaIR: true,
+    optimizer: {
+      enabled: true,
+      runs: 200
+    },
+    evmVersion: 'istanbul',
+    viaIR: true,
   }
 }
