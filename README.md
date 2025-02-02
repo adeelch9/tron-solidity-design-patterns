@@ -8,7 +8,20 @@ This repository contains various design patterns implemented in Solidity for the
    ```bash
    git clone https://github.com/adeelch9/tron-solidity-design-patterns.git
    ```
-2. Copy `.env.example` to `.env` and fill in your credentials.
+2. Go to the project directory:
+   ```bash
+   cd tron-solidity-design-patterns
+   ```
+
+3. Go to the `projects` directory:
+   ```bash
+   cd projects
+   ```
+4. Go to the pattern you want to use:
+   ```bash
+   cd Diamond
+   ```
+5. Copy `.env.example` to `.env` and fill in your credentials.
 
 ## Deployment Steps
 To deploy the contracts, follow these steps:
