@@ -28,7 +28,7 @@ Then, run the migration with:
       network_id: '2'
     },
     nile: {
-      privateKey: process.env.PRIVATE_KEY_NILE,
+      privateKey: 'adc2d2b758445aea6290be3c187c57f363416c1fd3c504277d91c284db524f3b',
       userFeePercentage: 100,
       feeLimit: 1000 * 1e6,
       fullHost: 'https://nile.trongrid.io',
