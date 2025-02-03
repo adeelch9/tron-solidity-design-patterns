@@ -73,7 +73,7 @@ The `IDiamondCut` interface has the following functions,enums and structs:
         bytes4[] functionSelectors;
     }
 
-    /// @notice Add/replace/remove any number of functions and optionally execute
+    // Add/replace/remove any number of functions and optionally execute
     ///         a function with delegatecall
     /// @param _diamondCut Contains the facet addresses and function selectors
     /// @param _init The address of the contract or facet to execute _calldata
@@ -93,32 +93,32 @@ The `LibDiamond` library provides a set of functions for interacting with the di
 The `LibDiamond` library has the following functions:
 
 ```solidity
-    /// @notice Set the contract owner
+    // Set the contract owner
     function setContractOwner(address _newOwner) internal;
 
-    /// @notice Internal function version of diamondCut (its purpose is to Add/Replace/Remove facets from the diamond)
+    // Internal function version of diamondCut (its purpose is to Add/Replace/Remove facets from the diamond)
     function diamondCut(
         IDiamondCut.FacetCut[] memory _diamondCut,
         address _init,
         bytes memory _calldata
     ) internal;
 
-    /// @notice Add function to the facet
+    // Add function to the facet
     function addFunctions(address _facetAddress, bytes4[] memory _functionSelectors) internal;
 
-    /// @notice Replace functions of the facet
+    // Replace functions of the facet
     function replaceFunctions(address _facetAddress, bytes4[] memory _functionSelectors) internal;
 
-    /// @notice Remove functions of the given facet from the diamond
+    // Remove functions of the given facet from the diamond
     function removeFunctions(address _facetAddress, bytes4[] memory _functionSelectors) internal;
 
-    /// @notice Add facet to the diamond
+    // Add facet to the diamond
     function addFacet(DiamondStorage storage ds, address _facetAddress) internal;
 
-    /// @notice Add function of the given facet to the diamond
+    // Add function of the given facet to the diamond
     function addFunction(DiamondStorage storage ds, bytes4 _selector, uint96 _selectorPosition, address _facetAddress) internal;
 
-    /// @notice Remove function of the given facet from the diamond
+    // Remove function of the given facet from the diamond
     function removeFunction(DiamondStorage storage ds, address _facetAddress, bytes4 _selector) internal;
 ```
 
@@ -129,25 +129,25 @@ The `DiamondCutFacet` facet allows one to add, replace, and remove facets from t
 The `DiamondLoupeFacet` facet provides information about the diamond, including its facets and functions.
 
 ```solidity
-    /// @notice Gets all facets and their selectors.
+    // Gets all facets and their selectors.
     function facets() external override view returns (Facet[] memory facets_);
 
-    /// @notice Gets all the function selectors provided by a facet.
+    // Gets all the function selectors provided by a facet.
     function facetFunctionSelectors(address _facet) external override view returns (bytes4[] memory facetFunctionSelectors_);
 
-    /// @notice Gets all the facet addresses used by a diamond.
+    // Gets all the facet addresses used by a diamond.
     function facetAddresses() external override view returns (address[] memory facetAddresses_);
 
-    /// @notice Gets the facet that supports the given selector.
+    // Gets the facet that supports the given selector.
     function facetAddress(bytes4 _functionSelector) external override view returns (address facetAddress_);
 ```
 
 The `OwnershipFacet` facet provides functionality to manage the ownership of a diamond.
 
 ```solidity
-    /// @notice Transfers ownership of the diamond to the given address.
+    // Transfers ownership of the diamond to the given address.
     function transferOwnership(address _newOwner) external override;
 
-    /// @notice Gets the address of the owner of the diamond.
+    // Gets the address of the owner of the diamond.
     function owner() external override view returns (address owner_);
 ```
