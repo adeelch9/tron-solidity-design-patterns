@@ -59,7 +59,8 @@ The `Diamond` contract has the following functions:
 ```
 
 The `Diamond` contract implements the `IDiamondCut` interface.
-The `IDiamondCut` interface provides a function for cutting the diamond, which is used to add or remove facets from the diamond.
+
+The `IDiamondCut` interface provides a function declaration for adding, replacing, or removing facets from the diamond.
 
 The `IDiamondCut` interface has the following functions,enums and structs:
 
@@ -87,8 +88,37 @@ The `IDiamondCut` interface has the following functions,enums and structs:
 
     event DiamondCut(FacetCut[] _diamondCut, address _init, bytes _calldata);
 ```
+One can add functionality to the Diamond contract by adding different facets to the diamond.
 
-The `LibDiamond` library provides a set of functions for interacting with the diamond contract.
+The `contracts/facets` folder contains the implementations of the facets.
+The `DiamondCutFacet` facet allows one to add, replace, and remove facets from the diamond.
+The `DiamondLoupeFacet` facet provides information about the diamond, including its facets and functions.
+
+```solidity
+    // Gets all facets and their selectors.
+    function facets() external override view returns (Facet[] memory facets_);
+
+    // Gets all the function selectors provided by a facet.
+    function facetFunctionSelectors(address _facet) external override view returns (bytes4[] memory facetFunctionSelectors_);
+
+    // Gets all the facet addresses used by a diamond.
+    function facetAddresses() external override view returns (address[] memory facetAddresses_);
+
+    // Gets the facet that supports the given selector.
+    function facetAddress(bytes4 _functionSelector) external override view returns (address facetAddress_);
+```
+
+The `OwnershipFacet` facet provides functionality to manage the ownership of a diamond.
+
+```solidity
+    // Transfers ownership of the diamond to the given address.
+    function transferOwnership(address _newOwner) external override;
+
+    // Gets the address of the owner of the diamond.
+    function owner() external override view returns (address owner_);
+```
+
+The `LibDiamond` library provides a set of functions for interaction with the diamond contract.
 
 The `LibDiamond` library has the following functions:
 
@@ -120,34 +150,4 @@ The `LibDiamond` library has the following functions:
 
     // Remove function of the given facet from the diamond
     function removeFunction(DiamondStorage storage ds, address _facetAddress, bytes4 _selector) internal;
-```
-
-One can add functionality to the Diamond contract by adding different facets to the diamond.
-
-The `contracts/facets` folder contains the implementations of the facets.
-The `DiamondCutFacet` facet allows one to add, replace, and remove facets from the diamond.
-The `DiamondLoupeFacet` facet provides information about the diamond, including its facets and functions.
-
-```solidity
-    // Gets all facets and their selectors.
-    function facets() external override view returns (Facet[] memory facets_);
-
-    // Gets all the function selectors provided by a facet.
-    function facetFunctionSelectors(address _facet) external override view returns (bytes4[] memory facetFunctionSelectors_);
-
-    // Gets all the facet addresses used by a diamond.
-    function facetAddresses() external override view returns (address[] memory facetAddresses_);
-
-    // Gets the facet that supports the given selector.
-    function facetAddress(bytes4 _functionSelector) external override view returns (address facetAddress_);
-```
-
-The `OwnershipFacet` facet provides functionality to manage the ownership of a diamond.
-
-```solidity
-    // Transfers ownership of the diamond to the given address.
-    function transferOwnership(address _newOwner) external override;
-
-    // Gets the address of the owner of the diamond.
-    function owner() external override view returns (address owner_);
 ```
