@@ -140,9 +140,9 @@ The `DiamondLoupeFacet` facet provides information about the diamond, including 
 
     /// @notice Gets the facet that supports the given selector.
     function facetAddress(bytes4 _functionSelector) external override view returns (address facetAddress_);
-    ```
+```
 
-    The `OwnershipFacet` facet provides functionality to manage the ownership of a diamond.
+The `OwnershipFacet` facet provides functionality to manage the ownership of a diamond.
 
     ```solidity
     /// @notice Transfers ownership of the diamond to the given address.
