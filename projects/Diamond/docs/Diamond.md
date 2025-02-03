@@ -144,7 +144,7 @@ The `DiamondLoupeFacet` facet provides information about the diamond, including 
 
 The `OwnershipFacet` facet provides functionality to manage the ownership of a diamond.
 
-    ```solidity
+```solidity
     /// @notice Transfers ownership of the diamond to the given address.
     function transferOwnership(address _newOwner) external override;
 
