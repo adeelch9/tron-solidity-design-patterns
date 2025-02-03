@@ -12,10 +12,11 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "fs": "^0.0.1-security",
     "@openzeppelin/contracts": "^5.2.0",
     "chai-as-promised": "^8.0.1",
     "dotenv": "^16.4.7",
+    "ethers": "^5.7.2",
+    "fs": "^0.0.1-security",
     "tronweb": "^6.0.0"
   },
   "devDependencies": {
