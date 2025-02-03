@@ -128,8 +128,8 @@ The `contracts/facets` folder contains the implementations of the facets.
 The `DiamondCutFacet` facet allows one to add, replace, and remove facets from the diamond.
 The `DiamondLoupeFacet` facet provides information about the diamond, including its facets and functions.
 
-    ```solidity
-        /// @notice Gets all facets and their selectors.
+```solidity
+    /// @notice Gets all facets and their selectors.
     function facets() external override view returns (Facet[] memory facets_);
 
     /// @notice Gets all the function selectors provided by a facet.
@@ -142,7 +142,7 @@ The `DiamondLoupeFacet` facet provides information about the diamond, including 
     function facetAddress(bytes4 _functionSelector) external override view returns (address facetAddress_);
     ```
 
-The `OwnershipFacet` facet provides functionality to manage the ownership of a diamond.
+    The `OwnershipFacet` facet provides functionality to manage the ownership of a diamond.
 
     ```solidity
     /// @notice Transfers ownership of the diamond to the given address.
@@ -150,4 +150,4 @@ The `OwnershipFacet` facet provides functionality to manage the ownership of a d
 
     /// @notice Gets the address of the owner of the diamond.
     function owner() external override view returns (address owner_);
-    ```
+```
