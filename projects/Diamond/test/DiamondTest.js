@@ -58,9 +58,9 @@ contract('DiamondTest', async (accounts) => {
     test2Facet = await Test2Facet.deployed()
     diamond = await Diamond.deployed()
     
-    diamondCutFacet = await tronWeb.contract(DiamondCutFacet.abi, diamond.address)
-    diamondLoupeFacet = await tronWeb.contract(DiamondLoupeFacet.abi, diamond.address)
-    ownershipFacet = await tronWeb.contract(OwnershipFacet.abi, diamond.address)
+    diamondCutFacet = await TronWeb.contract(DiamondCutFacet.abi, diamond.address)
+    diamondLoupeFacet = await TronWeb.contract(DiamondLoupeFacet.abi, diamond.address)
+    ownershipFacet = await TronWeb.contract(OwnershipFacet.abi, diamond.address)
     
     tronWeb.setAddress(accounts[0])
   })
