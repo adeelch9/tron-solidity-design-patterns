@@ -43,19 +43,19 @@ Then, run the migration with:
       fullHost: 'http://127.0.0.1:' + port,
       network_id: '9'
     },
-    compilers: {
-      solc: {
-        version: '0.8.6'
-      }
-    }
-  },
-  // solc compiler optimize
-  solc: {
-    optimizer: {
-      enabled: true,
-      runs: 200
-    },
-    evmVersion: 'istanbul',
-    viaIR: true,
+  //   compilers: {
+  //     solc: {
+  //       version: '0.8.0'
+  //     }
+  //   }
+  // },
+  // // solc compiler optimize
+  // solc: {
+  //   optimizer: {
+  //     enabled: true,
+  //     runs: 200
+  //   },
+  //   evmVersion: 'istanbul',
+  //   viaIR: true,
   }
 }

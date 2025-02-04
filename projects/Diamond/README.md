@@ -26,13 +26,19 @@ The Diamond Pattern is a design pattern used in smart contract development that 
 ## How to Run the Project
 1. **Install Dependencies**: Make sure you have Node.js and Yarn installed. Then, run:
    ```bash
+   npm install -g tronbox
    yarn install
    ```
 2. **Set Environment Variables**: Ensure you have the necessary environment variables set, such as `PRIVATE_KEY_NILE`.
 
 3. **Deploy the Contracts**: Use the following command to deploy the contracts:
    ```bash
-   yarn run migrate --network nile
+   tronbox migrate --network nile
+   ```
+
+4. **Run the Tests**: To run the tests, use the following command:
+   ```bash
+   tronbox test --network nile
    ```
 
 ## Adding New Facets
