@@ -6,7 +6,10 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "tronbox compile",
+    "test": "tronbox test",
+    "test-network": "docker run -it -p 9090:9090 --rm --name tron -e \"mnemonic=maid lock awkward october curtain renew eyebrow access gasp essay lonely buyer\" tronbox/tre",
+    "migrate": "tronbox migrate --reset"
   },
   "author": "",
   "license": "ISC",

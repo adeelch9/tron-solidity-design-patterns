@@ -35,6 +35,7 @@ function encodeInitializerFunction(contract, functionName, args = []) {
 }
 
 module.exports = async function (deployer, network, accounts) {
+    console.log(`\n=== Deploying using account: ${accounts} ===`);
     console.log(`\n=== Starting Deployment to Network: ${network} ===`);
 
     if (!process.env.PRIVATE_KEY_NILE) {
@@ -43,7 +44,7 @@ module.exports = async function (deployer, network, accounts) {
 
     const diamondOwner = accounts;
     const tronWeb = new TronWeb({
-        fullHost: "https://nile.trongrid.io/", // Update for production
+        fullHost: "http://127.0.0.1:9090", // Update for production
         privateKey: process.env.PRIVATE_KEY_NILE,
     });
 

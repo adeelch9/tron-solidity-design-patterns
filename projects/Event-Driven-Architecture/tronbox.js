@@ -1,6 +1,5 @@
-require('dotenv').config();
 const port = process.env.HOST_PORT || 9090
-
+require('dotenv').config();
 module.exports = {
   networks: {
     mainnet: {
@@ -36,19 +35,21 @@ Then, run the migration with:
       network_id: '3'
     },
     development: {
-      privateKey: "e9675f74084f51d70901e698e4b6cbf34e89f37f1cbff58370156d4ff35e52f3",
-      userFeePercentage: 1, // The percentage of resource consumption ratio.
-      fullHost: "http://127.0.0.1:9090",
+      // For tronbox/tre docker image
+      privateKey: '0000000000000000000000000000000000000000000000000000000000000001',
+      userFeePercentage: 0,
+      feeLimit: 1000 * 1e6,
+      fullHost: 'http://127.0.0.1:' + port,
       network_id: '9'
+    },
+    // compilers: {
+    //   solc: {
+    //     version: '0.8.6'
+    //   }
+    // }
   },
-  //   compilers: {
-  //     solc: {
-  //       version: '0.8.0'
-  //     }
-  //   }
-  // },
-  // // solc compiler optimize
-  // solc: {
+  // solc compiler optimize
+  solc: {
   //   optimizer: {
   //     enabled: true,
   //     runs: 200
