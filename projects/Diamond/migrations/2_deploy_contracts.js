@@ -9,9 +9,9 @@ const { ethers } = require("ethers");
 const FacetNames = [
     "DiamondLoupeFacet",
     "OwnershipFacet",
+    "Test1Facet",
+    "Test2Facet",
     // Add other facet names here
-    // "Test1Facet",
-    // "Test2Facet",
 ];
 
 const FacetCutAction = {
@@ -30,8 +30,26 @@ function getSelectors(contract) {
 
 // Helper: Encode initialization calldata using ethers
 function encodeInitializerFunction(contract, functionName, args = []) {
-    const iface = new ethers.utils.Interface(contract.abi);
-    return iface.encodeFunctionData(functionName, args);
+    // Create a tronweb instance of the contract interface
+    const functionSelector = contract.methodInstances[functionName].signature;
+    
+    // Encode the parameters using tronweb's encodeParams
+    if (args.length === 0) {
+        return functionSelector;
+    }
+    
+    // Get the parameter types from the ABI
+    const methodAbi = contract.abi.find(method => 
+        method.name === functionName && method.type === 'function'
+    );
+    
+    const paramTypes = methodAbi.inputs.map(input => input.type);
+    
+    // Encode the parameters
+    const encodedParams = tronWeb.eth.abi.encodeParameters(paramTypes, args);
+    
+    // Combine function selector with encoded parameters
+    return functionSelector + encodedParams.slice(2); // Remove '0x' prefix from params
 }
 
 module.exports = async function (deployer, network, accounts) {
@@ -85,54 +103,54 @@ module.exports = async function (deployer, network, accounts) {
             });
         }
 
-        // console.log("\n--- Encoding Initialization ---");
-        // const initData = encodeInitializerFunction(diamondInit, "init");
+        console.log("\n--- Encoding Initialization ---");
+        const initData = encodeInitializerFunction(diamondInit, init);
 
-        // console.log('Encoded Init Data:', initData);
+        console.log('Encoded Init Data:', initData);
 
-        // const diamondCutData = cut.map(facetCut => ({
-        //     facetAddress: TronWeb.address.fromHex(facetCut.facetAddress),
-        //     action: facetCut.action,
-        //     functionSelectors: facetCut.functionSelectors.map(selector => selector.startsWith("0x") ? selector : "0x" + selector),
-        // }));
+        const diamondCutData = cut.map(facetCut => ({
+            facetAddress: TronWeb.address.fromHex(facetCut.facetAddress),
+            action: facetCut.action,
+            functionSelectors: facetCut.functionSelectors.map(selector => selector.startsWith("0x") ? selector : "0x" + selector),
+        }));
 
-        // console.log('Diamond Cut Data:', JSON.stringify(diamondCutData, null, 2));
+        console.log('Diamond Cut Data:', JSON.stringify(diamondCutData, null, 2));
 
-        // // ABI encoding for txParams
-        // const abiEncodedTxParams = tronWeb.utils.abi.encodeParams(
-        //     [
-        //         {
-        //             type: 'tuple[]',
-        //             components: [
-        //                 { name: 'facetAddress', type: 'address' },
-        //                 { name: 'action', type: 'uint8' },
-        //                 { name: 'functionSelectors', type: 'bytes4[]' },
-        //             ],
-        //         },
-        //         { type: 'address' },
-        //         { type: 'bytes' },
-        //     ],
-        //     [diamondCutData, diamondInit.address, initData]
-        // );
+        // ABI encoding for txParams
+        const abiEncodedTxParams = tronWeb.utils.abi.encodeParams(
+            [
+                {
+                    type: 'tuple[]',
+                    components: [
+                        { name: 'facetAddress', type: 'address' },
+                        { name: 'action', type: 'uint8' },
+                        { name: 'functionSelectors', type: 'bytes4[]' },
+                    ],
+                },
+                { type: 'address' },
+                { type: 'bytes' },
+            ],
+            [diamondCutData, diamondInit.address, initData]
+        );
 
-        // // Perform diamond cut using TronWeb
-        // console.log('Performing diamond cut...');
-        // const transaction = await tronWeb.transactionBuilder.triggerSmartContract(
-        //     diamond.address,
-        //     'diamondCut(tuple(address,uint8,bytes4[])[],address,bytes)',
-        //     {}, // Options
-        //     abiEncodedTxParams, // ABI-encoded parameters
-        //     diamondOwner // Owner address
-        // );
+        // Perform diamond cut using TronWeb
+        console.log('Performing diamond cut...');
+        const transaction = await tronWeb.transactionBuilder.triggerSmartContract(
+            diamond.address,
+            'diamondCut(tuple(address,uint8,bytes4[])[],address,bytes)',
+            {}, // Options
+            abiEncodedTxParams, // ABI-encoded parameters
+            diamondOwner // Owner address
+        );
 
-        // // Sign and send the transaction
-        // const signedTx = await tronWeb.trx.sign(transaction);
-        // const receipt = await tronWeb.trx.sendRawTransaction(signedTx);
-        // console.log('Diamond cut transaction sent, txid:', receipt.txid);
+        // Sign and send the transaction
+        const signedTx = await tronWeb.trx.sign(transaction);
+        const receipt = await tronWeb.trx.sendRawTransaction(signedTx);
+        console.log('Diamond cut transaction sent, txid:', receipt.txid);
 
-        // // Wait for confirmation
-        // const txInfo = await tronWeb.trx.getTransactionInfo(receipt.txid);
-        // console.log('Diamond cut confirmed:', txInfo);
+        // Wait for confirmation
+        const txInfo = await tronWeb.trx.getTransactionInfo(receipt.txid);
+        console.log('Diamond cut confirmed:', txInfo);
 
         return diamond.address;
     } catch (error) {
