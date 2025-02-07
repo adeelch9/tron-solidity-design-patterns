@@ -19,8 +19,8 @@ var ownershipFacet;
 let addresses = []
 
 const tronWeb = new TronWeb({
-  fullHost: "http://127.0.0.1:9090", // Update for production
-  privateKey: process.env.PRIVATE_KEY_NILE,
+  fullHost: process.env.FULL_HOST, // Update for production
+  privateKey: process.env.PRIVATE_KEY,
 });
 
 contract('Diamond', (accounts) => {

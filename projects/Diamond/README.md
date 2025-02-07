@@ -31,15 +31,36 @@ The Diamond Pattern is a design pattern used in smart contract development that 
    ```
 2. **Set Environment Variables**: Ensure you have the necessary environment variables set, such as `PRIVATE_KEY_NILE`.
 
-3. **Deploy the Contracts**: Use the following command to deploy the contracts:
+3. **Deploy the Contracts**: Use the following command to deploy the contracts to Nile Testnet:
    ```bash
    tronbox migrate --network nile
    ```
 
-4. **Run the Tests**: To run the tests, use the following command:
+4. **Deploying on local network**: 
+   1. First install latest docker and docker-compose: https://docs.docker.com/engine/install/
+   2. Once docker is installed, get the tron/tre image:
    ```bash
-   tronbox test --network nile
+   docker pull tronbox/tre  
    ```
+   3. Run the tron/tre image with the following command:
+   ```bash
+   docker run -it \
+  -p 9090:9090 \
+  --rm \
+  --name tron \
+  -e "accounts=20" \
+  tronbox/tre
+   ```
+   4. Now you can run the tronbox migrate command to deploy the contracts to the local network
+   ```bash
+   tronbox migrate --network development
+   ```
+   5. **Run the Tests**: To run the tests, use the following command:
+   ```bash
+   tronbox test
+   ```
+
+
 
 ## Adding New Facets
 In the deployment migration script, you can easily add new facets to the diamond. The relevant code snippet is as follows:
@@ -48,11 +69,10 @@ In the deployment migration script, you can easily add new facets to the diamond
 const FacetNames = [
     'DiamondLoupeFacet',
     'OwnershipFacet',
-    /*
-    add other facet names here
-    e.g.
     'Test1Facet',
     'Test2Facet'
+    /*
+    add other facet names here
     */
 ];
 ```
