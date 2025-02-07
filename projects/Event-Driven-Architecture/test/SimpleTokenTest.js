@@ -2,17 +2,10 @@ const SimpleToken = artifacts.require("SimpleToken");
 import { TronWeb } from "tronweb"
 
 let simpleToken;
-
-const tronWeb = new TronWeb({
-    fullHost: process.env.FULL_HOST, // Update for production
-    privateKey: process.env.PRIVATE_KEY,
-  });
 contract("SimpleToken", accounts => {
 
     before(async () => {
         simpleToken = await SimpleToken.deployed();
-
-        tronWeb.setAddress(accounts[0])
     });
 
     it("deployer should have same balance as initial supply", async () => {

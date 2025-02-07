@@ -27,16 +27,11 @@ The Diamond Pattern is a design pattern used in smart contract development that 
 1. **Install Dependencies**: Make sure you have Node.js and Yarn installed. Then, run:
    ```bash
    npm install -g tronbox
-   yarn install
+   npm install
    ```
-2. **Set Environment Variables**: Ensure you have the necessary environment variables set, such as `PRIVATE_KEY_NILE`.
+2. **Set Environment Variables**: Ensure you have the necessary environment variables set, such as `PRIVATE_KEY` for local development and `PRIVATE_KEY_NILE` for Nile Testnet deployment.
 
-3. **Deploy the Contracts**: Use the following command to deploy the contracts to Nile Testnet:
-   ```bash
-   tronbox migrate --network nile
-   ```
-
-4. **Deploying on local network**: 
+3. **Deploying on local network**: 
    1. First install latest docker and docker-compose: https://docs.docker.com/engine/install/
    2. Once docker is installed, get the tron/tre image:
    ```bash
@@ -60,7 +55,14 @@ The Diamond Pattern is a design pattern used in smart contract development that 
       tronbox test
    ```
 
-
+4. **Deploy the Contracts**: 
+   1. Update the `PRIVATE_KEY_NILE` environment variable in the `.env` file with your Nile Testnet private key.
+   2. Update the `FULL_HOST` environment variable in the `.env` file with your Nile Testnet full node URL.
+   3. Update the `TronWeb` object in the `migrations/2_deploy_contracts.js` file with your Nile Testnet full node URL and private key.
+   4. Use the following command to deploy the contracts to Nile Testnet:
+   ```bash
+   tronbox migrate --network nile
+   ```
 
 ## Adding New Facets
 In the deployment migration script, you can easily add new facets to the diamond. The relevant code snippet is as follows:
