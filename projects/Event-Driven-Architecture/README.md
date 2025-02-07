@@ -47,5 +47,5 @@ This projects demonstrates Event-Driven Architecture (EDA) in Solidity smart con
    ```
    5. **Run the Tests**: To run the tests, use the following command:
    ```bash
-       test
+       tronbox test
    ```
