@@ -40,24 +40,24 @@ The Diamond Pattern is a design pattern used in smart contract development that 
    1. First install latest docker and docker-compose: https://docs.docker.com/engine/install/
    2. Once docker is installed, get the tron/tre image:
    ```bash
-   docker pull tronbox/tre  
+      docker pull tronbox/tre  
    ```
    3. Run the tron/tre image with the following command:
    ```bash
-   docker run -it \
-  -p 9090:9090 \
-  --rm \
-  --name tron \
-  -e "accounts=20" \
-  tronbox/tre
+      docker run -it \
+      -p 9090:9090 \
+      --rm \
+      --name tron \
+      -e "accounts=20" \
+      tronbox/tre
    ```
    4. Now you can run the tronbox migrate command to deploy the contracts to the local network
    ```bash
-   tronbox migrate --network development
+      tronbox migrate --network development
    ```
    5. **Run the Tests**: To run the tests, use the following command:
    ```bash
-   tronbox test
+      tronbox test
    ```
 
 
