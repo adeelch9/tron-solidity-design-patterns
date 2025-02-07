@@ -27,7 +27,8 @@ This repository contains various design patterns implemented in Solidity for the
 To deploy the contracts, follow these steps:
 1. Install dependencies:
    ```bash
-   npm install
+      npm install -g tronbox
+      npm install
    ```
 2. Set environment variables in the `.env` file.
 3. Deploy the contracts using:
