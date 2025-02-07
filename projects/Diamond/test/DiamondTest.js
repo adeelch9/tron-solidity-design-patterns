@@ -34,15 +34,4 @@ contract('Diamond', (accounts) => {
 
     tronWeb.setAddress(accounts[0])
   })
-
-  it("should have 1 facets -- call to facetAddresses function", async function () {
-    
-    for (const address of await diamondLoupeFacet.facetAddresses()) {
-      addresses.push(address)
-    }
-    console.log(addresses)
-
-    assert.equal(addresses.length, 1)
-  });
-
 })

@@ -56,14 +56,14 @@ module.exports = async function (deployer, network, accounts) {
     console.log(`\n=== Deploying using account: ${accounts} ===`);
     console.log(`\n=== Starting Deployment to Network: ${network} ===`);
 
-    if (!process.env.PRIVATE_KEY_NILE) {
-        throw new Error("Missing PRIVATE_KEY_NILE in environment variables.");
+    if (!process.env.PRIVATE_KEY) {
+        throw new Error("Missing PRIVATE_KEY in environment variables.");
     }
 
     const diamondOwner = accounts;
     const tronWeb = new TronWeb({
-        fullHost: "http://127.0.0.1:9090", // Update for production
-        privateKey: process.env.PRIVATE_KEY_NILE,
+        fullHost: process.env.FULL_HOST, // Update for production
+        privateKey: process.env.PRIVATE_KEY,
     });
 
     try {
@@ -103,54 +103,54 @@ module.exports = async function (deployer, network, accounts) {
             });
         }
 
-        console.log("\n--- Encoding Initialization ---");
-        const initData = encodeInitializerFunction(diamondInit, init);
+        // console.log("\n--- Encoding Initialization ---");
+        // const initData = encodeInitializerFunction(diamondInit, init);
 
-        console.log('Encoded Init Data:', initData);
+        // console.log('Encoded Init Data:', initData);
 
-        const diamondCutData = cut.map(facetCut => ({
-            facetAddress: TronWeb.address.fromHex(facetCut.facetAddress),
-            action: facetCut.action,
-            functionSelectors: facetCut.functionSelectors.map(selector => selector.startsWith("0x") ? selector : "0x" + selector),
-        }));
+        // const diamondCutData = cut.map(facetCut => ({
+        //     facetAddress: TronWeb.address.fromHex(facetCut.facetAddress),
+        //     action: facetCut.action,
+        //     functionSelectors: facetCut.functionSelectors.map(selector => selector.startsWith("0x") ? selector : "0x" + selector),
+        // }));
 
-        console.log('Diamond Cut Data:', JSON.stringify(diamondCutData, null, 2));
+        // console.log('Diamond Cut Data:', JSON.stringify(diamondCutData, null, 2));
 
-        // ABI encoding for txParams
-        const abiEncodedTxParams = tronWeb.utils.abi.encodeParams(
-            [
-                {
-                    type: 'tuple[]',
-                    components: [
-                        { name: 'facetAddress', type: 'address' },
-                        { name: 'action', type: 'uint8' },
-                        { name: 'functionSelectors', type: 'bytes4[]' },
-                    ],
-                },
-                { type: 'address' },
-                { type: 'bytes' },
-            ],
-            [diamondCutData, diamondInit.address, initData]
-        );
+        // // ABI encoding for txParams
+        // const abiEncodedTxParams = tronWeb.utils.abi.encodeParams(
+        //     [
+        //         {
+        //             type: 'tuple[]',
+        //             components: [
+        //                 { name: 'facetAddress', type: 'address' },
+        //                 { name: 'action', type: 'uint8' },
+        //                 { name: 'functionSelectors', type: 'bytes4[]' },
+        //             ],
+        //         },
+        //         { type: 'address' },
+        //         { type: 'bytes' },
+        //     ],
+        //     [diamondCutData, diamondInit.address, initData]
+        // );
 
-        // Perform diamond cut using TronWeb
-        console.log('Performing diamond cut...');
-        const transaction = await tronWeb.transactionBuilder.triggerSmartContract(
-            diamond.address,
-            'diamondCut(tuple(address,uint8,bytes4[])[],address,bytes)',
-            {}, // Options
-            abiEncodedTxParams, // ABI-encoded parameters
-            diamondOwner // Owner address
-        );
+        // // Perform diamond cut using TronWeb
+        // console.log('Performing diamond cut...');
+        // const transaction = await tronWeb.transactionBuilder.triggerSmartContract(
+        //     diamond.address,
+        //     'diamondCut(tuple(address,uint8,bytes4[])[],address,bytes)',
+        //     {}, // Options
+        //     abiEncodedTxParams, // ABI-encoded parameters
+        //     diamondOwner // Owner address
+        // );
 
-        // Sign and send the transaction
-        const signedTx = await tronWeb.trx.sign(transaction);
-        const receipt = await tronWeb.trx.sendRawTransaction(signedTx);
-        console.log('Diamond cut transaction sent, txid:', receipt.txid);
+        // // Sign and send the transaction
+        // const signedTx = await tronWeb.trx.sign(transaction);
+        // const receipt = await tronWeb.trx.sendRawTransaction(signedTx);
+        // console.log('Diamond cut transaction sent, txid:', receipt.txid);
 
-        // Wait for confirmation
-        const txInfo = await tronWeb.trx.getTransactionInfo(receipt.txid);
-        console.log('Diamond cut confirmed:', txInfo);
+        // // Wait for confirmation
+        // const txInfo = await tronWeb.trx.getTransactionInfo(receipt.txid);
+        // console.log('Diamond cut confirmed:', txInfo);
 
         return diamond.address;
     } catch (error) {
