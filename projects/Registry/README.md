@@ -1,16 +1,17 @@
-# Factory Contract Project
+# Registry Contract Project
 
 ## Introduction
-This projects demonstrates Factory Contract pattern in Solidity smart contracts.
+This projects demonstrates Registry Contract pattern in Solidity smart contracts.
 
 ## Folder Structure
 ```
-/projects/Factory
+/projects/Registry
 ├── contracts
-│   └── ManagedContract.sol         # Sample contract
-│   └── ManagedContractFactory.sol  # Factory contract
+│   └── Registry.sol         # Registry contract
+│   └── UserLogic.sol         # Sample contract
+│   └── UserStorage.sol         # Sample contract
 ├── test
-│   └── FactoryTests.js             # Test cases   
+│   └── RegistryTests.js             # Test cases   
 ├── migrations         # Migration scripts for deploying contracts
 └── tronbox.js        # Configuration for TronBox
 └── README.md         # Project documentation

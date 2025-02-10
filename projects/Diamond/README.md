@@ -48,6 +48,7 @@ The Diamond Pattern is a design pattern used in smart contract development that 
    ```
    4. Now you can run the tronbox migrate command to deploy the contracts to the local network
    ```bash
+      tronbox compile
       tronbox migrate --network development
    ```
    5. **Run the Tests**: To run the tests, use the following command:
@@ -61,6 +62,7 @@ The Diamond Pattern is a design pattern used in smart contract development that 
    3. Update the `TronWeb` object in the `migrations/2_deploy_contracts.js` file with your Nile Testnet full node URL and private key.
    4. Use the following command to deploy the contracts to Nile Testnet:
    ```bash
+   tronbox compile
    tronbox migrate --network nile
    ```
 
