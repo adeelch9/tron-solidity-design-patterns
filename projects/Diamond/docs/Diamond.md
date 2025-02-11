@@ -2,10 +2,10 @@
 
 ## Description
 
-The `Diamond` contract has the following functions:
+The `Diamond` contract is the main contract that is used to deploy other contracts.
+Diamond constructor that takes the address of the contract owner and the address of the diamondCutFacet and initializes the contract.
 
 ```solidity
-// Diamond constructor that takes the address of the contract owner and the address of the diamondCutFacet
     constructor(address _contractOwner, address _diamondCutFacet) payable {        
         LibDiamond.setContractOwner(_contractOwner);
 
@@ -20,7 +20,9 @@ The `Diamond` contract has the following functions:
         });
         LibDiamond.diamondCut(cut, address(0), "");        
     }
+```
 
+```solidity
     // Find facet for function that is called and execute the
     // function if a facet is found and return any value.
     fallback() external payable {
